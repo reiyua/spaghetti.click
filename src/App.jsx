@@ -1,34 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useRef } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const audio = new Audio(import.meta.env.BASE_URL + 'spaghetti.mp3')
+  const sprayInterval = useRef(null)
+
+  const startSpray = () => {
+    audio.currentTime = 0
+    audio.play()
+
+    sprayInterval.current = setInterval(() => {
+      spawnOneEmoji()
+    }, 100) // slower for a relaxed feel
+  }
+
+  const stopSpray = () => {
+    clearInterval(sprayInterval.current)
+    sprayInterval.current = null
+  }
+
+  const spawnOneEmoji = () => {
+    const emoji = document.createElement('div')
+    emoji.className = 'floaty-emoji'
+    emoji.textContent = '🍝'
+
+    const startX = window.innerWidth / 2
+    const startY = window.innerHeight - 60
+
+    const offsetX = (Math.random() - 0.5) * 50
+    const offsetY = -1 * (Math.random() * 50 + 100)
+
+    emoji.style.left = `${startX}px`
+    emoji.style.top = `${startY}px`
+
+    emoji.animate([
+      { transform: 'translate(0, 0)', opacity: 1 },
+      { transform: `translate(${offsetX}px, ${offsetY}px)`, opacity: 0 }
+    ], {
+      duration: 2000,
+      easing: 'ease-out',
+      fill: 'forwards'
+    })
+
+    document.body.appendChild(emoji)
+    setTimeout(() => emoji.remove(), 2500)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="container">
+      <button
+        className="spaghetti-button"
+        onMouseDown={startSpray}
+        onMouseUp={stopSpray}
+        onMouseLeave={stopSpray}
+      >
+        🍝
+      </button>
+    </div>
   )
 }
 

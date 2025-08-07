@@ -1,4 +1,4 @@
-const BASE_URL = 'http://skibarino.lol:8090'
+const BASE_URL = 'https://skibarino.lol'
 const COLLECTION = 'spaghetti_click_global_count'
 const RECORD_ID = 'rpzs5g2vci00nkk' // your actual record ID
 

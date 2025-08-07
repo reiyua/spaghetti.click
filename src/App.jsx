@@ -1,10 +1,11 @@
 import { useRef, useEffect, useState } from 'react'
 import './App.css'
-import { incrementGlobalClicks, getGlobalClicks } from './pocketbase'
+import { databases, DATABASE_ID, COLLECTION_ID, DOCUMENT_ID } from './appwrite'
 
 function App() {
   const sprayInterval = useRef(null)
   const syncInterval = useRef(null)
+
   const [clickCount, setClickCount] = useState(() => {
     const saved = localStorage.getItem('spaghettiClickCount')
     return saved ? parseInt(saved, 10) : 0
@@ -25,10 +26,36 @@ function App() {
     return () => clearInterval(syncInterval.current)
   }, [])
 
+  const getGlobalClicks = async () => {
+    try {
+      const res = await databases.getDocument(DATABASE_ID, COLLECTION_ID, DOCUMENT_ID)
+      return res.count || 0
+    } catch (err) {
+      console.error('Error fetching global clicks:', err)
+      return 0
+    }
+  }
+
+  const incrementGlobalClicks = async () => {
+    try {
+      const current = await getGlobalClicks()
+      const res = await databases.updateDocument(
+        DATABASE_ID,
+        COLLECTION_ID,
+        DOCUMENT_ID,
+        { count: current + 1 }
+      )
+      return res.count
+    } catch (err) {
+      console.error('Error updating global clicks:', err)
+      return globalClicks
+    }
+  }
+
   const startSpray = () => {
     incrementClick()
-    incrementGlobalClicks().then(setGlobalClicks)
     playSound()
+    incrementGlobalClicks().then(setGlobalClicks)
 
     sprayInterval.current = setInterval(() => {
       spawnOneEmoji()

@@ -8,6 +8,6 @@ client
 
 export const databases = new Databases(client)
 
-export const DATABASE_ID = 'database-68946afa0003682b1612'
+export const DATABASE_ID = '68946afa0003682b1612'
 export const COLLECTION_ID = 'global_clicks'     
 export const DOCUMENT_ID = 'global_counter'      

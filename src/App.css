@@ -117,3 +117,19 @@ html, body {
   user-select: none;
   z-index: 1000;
 }
+
+/* Copyright styling */
+.copyright {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 0.9rem;
+  color: white;
+  opacity: 0.6;
+  z-index: 1000;
+}
+
+.copyright a {
+  color: inherit;
+  text-decoration: underline;
+}

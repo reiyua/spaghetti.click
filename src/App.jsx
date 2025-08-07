@@ -117,6 +117,11 @@ function App() {
       >
         🍝
       </button>
+
+      {/* Copyright */}
+      <div className="copyright">
+        © <a href="https://reiyua.lol" target="_blank" rel="noopener noreferrer">reiyua</a> 2025
+      </div>
     </div>
   )
 }

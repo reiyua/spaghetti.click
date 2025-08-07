@@ -20,7 +20,7 @@ function App() {
 
     syncInterval.current = setInterval(() => {
       getGlobalClicks().then(setGlobalClicks)
-    }, 100)
+    }, 1000)
 
     return () => clearInterval(syncInterval.current)
   }, [])

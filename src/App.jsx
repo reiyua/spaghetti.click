@@ -1,10 +1,10 @@
-// src/App.jsx
 import { useRef, useEffect, useState } from 'react'
 import './App.css'
 import { incrementGlobalClicks, getGlobalClicks } from './pocketbase'
 
 function App() {
   const sprayInterval = useRef(null)
+  const syncInterval = useRef(null)
   const [clickCount, setClickCount] = useState(() => {
     const saved = localStorage.getItem('spaghettiClickCount')
     return saved ? parseInt(saved, 10) : 0
@@ -17,6 +17,12 @@ function App() {
 
   useEffect(() => {
     getGlobalClicks().then(setGlobalClicks)
+
+    syncInterval.current = setInterval(() => {
+      getGlobalClicks().then(setGlobalClicks)
+    }, 100)
+
+    return () => clearInterval(syncInterval.current)
   }, [])
 
   const startSpray = () => {

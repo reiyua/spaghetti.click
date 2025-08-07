@@ -1,12 +1,33 @@
-# React + Vite
+# 🍝 spaghetti.click
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A chaotic clicker web toy inspired by **Hotel Mario's** infamous meme line...
 
-Currently, two official plugins are available:
+> "Nice of the princess to invite us over for a *spaghetti*! 🍝"
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 What is this?
 
-## Expanding the ESLint configuration
+**spaghetti.click** is a silly interactive site where every click spawns flying spaghetti emojis 🍝 and plays the iconic **"spaghetti!"** voice line — yes, *that* one.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+It’s a loving homage to the golden era of YouTube Poops (YTP), especially **Hotel Mario** on the Philips CD-i — the source of some of the internet's most quotable nonsense.
+
+This site was also **heavily inspired by** [lizard.click](https://lizard.click), which similarly features a one-button experience with chaotic visuals and sounds.
+
+## 🧠 Meme Lore
+
+The *"spaghetti"* line comes from the awkward and now-legendary cutscenes in **Hotel Mario**, a 1994 CD-i game developed by Fantasy Factory. It’s often cited in YouTube Poops and remix culture for its bizarre animation and voice acting.
+
+YTP creators would remix this line, often stretching, distorting, and looping it for maximum absurdity.
+
+## 💻 How does it work?
+
+- Built with [Vite](https://vitejs.dev/) + React
+- Local click counter stored in `localStorage`
+- Global counter synced via [Appwrite](https://appwrite.io/)
+- Emojis fly upward on each click
+- Sound effect from Hotel Mario (fair use parody context)
+
+## 🚀 Deploy
+
+The site is deployed using **GitHub Pages** at:
+
+👉 [https://spaghetti.click](https://spaghetti.click)

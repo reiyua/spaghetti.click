@@ -1,17 +1,26 @@
-import { useRef } from 'react'
+// src/App.jsx
+import { useRef, useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const audio = new Audio(import.meta.env.BASE_URL + 'spaghetti.mp3')
   const sprayInterval = useRef(null)
+  const [clickCount, setClickCount] = useState(() => {
+    const saved = localStorage.getItem('spaghettiClickCount')
+    return saved ? parseInt(saved, 10) : 0
+  })
+
+  useEffect(() => {
+    localStorage.setItem('spaghettiClickCount', clickCount.toString())
+  }, [clickCount])
 
   const startSpray = () => {
-    audio.currentTime = 0
-    audio.play()
-
+    incrementClick()
+    playSound()
     sprayInterval.current = setInterval(() => {
       spawnOneEmoji()
-    }, 100) // slower for a relaxed feel
+      playSound()
+      incrementClick()
+    }, 100)
   }
 
   const stopSpray = () => {
@@ -19,23 +28,29 @@ function App() {
     sprayInterval.current = null
   }
 
+  const incrementClick = () => {
+    setClickCount(prev => prev + 1)
+  }
+
+  const playSound = () => {
+    const audio = new Audio(import.meta.env.BASE_URL + 'spaghetti.mp3')
+    audio.play()
+  }
+
   const spawnOneEmoji = () => {
     const emoji = document.createElement('div')
     emoji.className = 'floaty-emoji'
     emoji.textContent = '🍝'
 
-    const startX = window.innerWidth / 2
-    const startY = window.innerHeight - 60
+    const x = Math.random() * (window.innerWidth - 40) + 20
+    const y = window.innerHeight - 60
 
-    const offsetX = (Math.random() - 0.5) * 50
-    const offsetY = -1 * (Math.random() * 50 + 100)
-
-    emoji.style.left = `${startX}px`
-    emoji.style.top = `${startY}px`
+    emoji.style.left = `${x}px`
+    emoji.style.top = `${y}px`
 
     emoji.animate([
-      { transform: 'translate(0, 0)', opacity: 1 },
-      { transform: `translate(${offsetX}px, ${offsetY}px)`, opacity: 0 }
+      { transform: 'translateY(0px)', opacity: 1 },
+      { transform: 'translateY(-80px)', opacity: 0 }
     ], {
       duration: 2000,
       easing: 'ease-out',
@@ -43,11 +58,12 @@ function App() {
     })
 
     document.body.appendChild(emoji)
-    setTimeout(() => emoji.remove(), 2500)
+    setTimeout(() => emoji.remove(), 2200)
   }
 
   return (
     <div className="container">
+<div className="click-counter">My Clicks: {clickCount}</div>
       <button
         className="spaghetti-button"
         onMouseDown={startSpray}

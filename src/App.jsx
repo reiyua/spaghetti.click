@@ -109,6 +109,7 @@ function App() {
         <span>My count: {clickCount}</span> &nbsp;&nbsp;
         <span>Global count: {globalClicks}</span>
       </div>
+
       <button
         className="spaghetti-button"
         onMouseDown={startSpray}
@@ -118,9 +119,26 @@ function App() {
         🍝
       </button>
 
-      {/* Copyright */}
+      {/* Bottom Left: Source Code */}
+      <div className="source-link">
+        <a
+          href="https://github.com/reiyua/spaghetti.click"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source Code
+        </a>
+      </div>
+
+      {/* Bottom Right: Copyright */}
       <div className="copyright">
-        © <a href="https://reiyua.lol" target="_blank" rel="noopener noreferrer">reiyua</a> 2025
+        © <a
+          href="https://reiyua.lol"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          reiyua
+        </a> 2025
       </div>
     </div>
   )

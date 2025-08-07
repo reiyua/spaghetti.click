@@ -118,7 +118,6 @@ html, body {
   z-index: 1000;
 }
 
-/* Copyright styling */
 .copyright {
   position: fixed;
   bottom: 10px;
@@ -130,6 +129,21 @@ html, body {
 }
 
 .copyright a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.source-link {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 0.9rem;
+  color: white;
+  opacity: 0.6;
+  z-index: 1000;
+}
+
+.source-link a {
   color: inherit;
   text-decoration: underline;
 }

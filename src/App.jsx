@@ -106,8 +106,8 @@ function App() {
   return (
     <div className="container">
       <div className="click-counter">
-        <span>My: {clickCount}</span> &nbsp;&nbsp;
-        <span>Global: {globalClicks}</span>
+        <span>My count: {clickCount}</span> &nbsp;&nbsp;
+        <span>Global Count: {globalClicks}</span>
       </div>
       <button
         className="spaghetti-button"

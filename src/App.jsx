@@ -1,6 +1,7 @@
 // src/App.jsx
 import { useRef, useEffect, useState } from 'react'
 import './App.css'
+import { incrementGlobalClicks, getGlobalClicks } from './pocketbase'
 
 function App() {
   const sprayInterval = useRef(null)
@@ -8,18 +9,26 @@ function App() {
     const saved = localStorage.getItem('spaghettiClickCount')
     return saved ? parseInt(saved, 10) : 0
   })
+  const [globalClicks, setGlobalClicks] = useState(0)
 
   useEffect(() => {
     localStorage.setItem('spaghettiClickCount', clickCount.toString())
   }, [clickCount])
 
+  useEffect(() => {
+    getGlobalClicks().then(setGlobalClicks)
+  }, [])
+
   const startSpray = () => {
     incrementClick()
+    incrementGlobalClicks().then(setGlobalClicks)
     playSound()
+
     sprayInterval.current = setInterval(() => {
       spawnOneEmoji()
       playSound()
       incrementClick()
+      incrementGlobalClicks().then(setGlobalClicks)
     }, 100)
   }
 
@@ -63,7 +72,10 @@ function App() {
 
   return (
     <div className="container">
-<div className="click-counter">My Clicks: {clickCount}</div>
+      <div className="click-counter">
+        <span>My: {clickCount}</span> &nbsp;&nbsp;
+        <span>Global: {globalClicks}</span>
+      </div>
       <button
         className="spaghetti-button"
         onMouseDown={startSpray}
